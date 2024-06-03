@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CryptographyService } from '../cryptography/cryptography.service';
+import { TokenService } from '../token/token.service';
 
 @Injectable()
 export class AuthService {
@@ -11,16 +12,19 @@ export class AuthService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     private readonly cryptographyService: CryptographyService,
+    private readonly tokenService: TokenService,
   ) {}
 
-  login() {
-    return 'LOGIN';
+  login(user: User) {
+    return this.tokenService.generateToken(user);
   }
 
   async validateUser(loginDto: LoginDto) {
     const { email, password } = loginDto;
 
     const user = await this.usersRepository.findOne({ where: { email } });
+
+    // TODO: Exclude "password" from user
 
     if (!user) {
       return null;

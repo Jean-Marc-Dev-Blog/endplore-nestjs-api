@@ -12,6 +12,6 @@ export class AuthController {
   @Post('login')
   login(@CurrentUser() user: User) {
     // User is defined, because LocalAuthGuard sits before this method
-    return this.authService.login(user);
+    return { token: this.authService.login(user) };
   }
 }
