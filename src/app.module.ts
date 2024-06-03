@@ -30,6 +30,5 @@ import { CryptographyService } from './cryptography/cryptography.service';
     UsersModule,
     AuthModule,
   ],
-  providers: [CryptographyService],
 })
 export class AppModule {}
