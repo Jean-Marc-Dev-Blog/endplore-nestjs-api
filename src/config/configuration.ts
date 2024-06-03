@@ -7,4 +7,8 @@ export default () => ({
     name: process.env.DB_NAME || 'postgres',
     synchronize: process.env.DB_SYNCHRONIZE || true,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET || '23ökjIJÖkj2ijök2kökjö',
+    expiresIn: process.env.JWT_EXPIRES_IN || '8h',
+  }
 });
