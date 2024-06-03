@@ -24,8 +24,6 @@ export class AuthService {
 
     const user = await this.usersRepository.findOne({ where: { email } });
 
-    // TODO: Exclude "password" from user
-
     if (!user) {
       return null;
     }
