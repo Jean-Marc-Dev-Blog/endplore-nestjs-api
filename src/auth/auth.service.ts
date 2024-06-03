@@ -26,7 +26,10 @@ export class AuthService {
       return null;
     }
 
-    const match = await this.cryptographyService.verify(user.password, password);
+    const match = await this.cryptographyService.verify(
+      user.password,
+      password,
+    );
 
     if (!match) {
       return null;
