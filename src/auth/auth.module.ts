@@ -8,6 +8,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService, LocalStrategy],
 })
 export class AuthModule {}
