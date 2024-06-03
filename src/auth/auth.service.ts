@@ -3,12 +3,14 @@ import { LoginDto } from './dtos/login.dto';
 import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CryptographyService } from '../cryptography/cryptography.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly cryptographyService: CryptographyService,
   ) {}
 
   login() {
@@ -24,8 +26,7 @@ export class AuthService {
       return null;
     }
 
-    // TODO: Check password with hashed password
-    const match = password === user.password;
+    const match = await this.cryptographyService.verify(user.password, password);
 
     if (!match) {
       return null;
