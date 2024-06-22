@@ -32,8 +32,8 @@ export class ProjectsController {
     return this.projectsService.addProject(body, user.id);
   }
 
-  @Patch()
-  updateProject(@Param() id: string, @Body() body: UpdateProjectDto) {
-    return this.projectsService.updateProject(body);
+  @Patch('/:id')
+  updateProject(@Param('id') id: string, @Body() body: UpdateProjectDto) {
+    return this.projectsService.updateProject(id, body);
   }
 }
