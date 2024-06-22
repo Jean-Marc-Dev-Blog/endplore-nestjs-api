@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { Repository } from 'typeorm';
@@ -31,7 +31,15 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  updateProject(updateProjectDto: UpdateProjectDto) {
-    return 'UPDATE';
+  async updateProject(id: string, updateProjectDto: UpdateProjectDto) {
+    const project = await this.projectsRepository.findOne({ where: { id } });
+
+    if (project === null) {
+      throw new BadRequestException(`Project with id ${id} not found.`);
+    }
+
+    Object.assign(project, updateProjectDto);
+
+    return this.projectsRepository.save(project);
   }
 }
