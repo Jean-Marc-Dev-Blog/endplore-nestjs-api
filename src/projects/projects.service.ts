@@ -13,4 +13,8 @@ export class ProjectsService {
   getProjects(userId: string) {
     return this.projectsRepository.find({ where: { user: { id: userId } } });
   }
+
+  addProject() {
+    return 'CREATE PROJECT';
+  }
 }
