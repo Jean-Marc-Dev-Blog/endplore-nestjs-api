@@ -1,5 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Project } from '../../projects/entities/project.entity';
 
 @Entity()
 export class User {
@@ -21,4 +27,7 @@ export class User {
 
   @Column()
   jobRole: string;
+
+  @OneToMany(() => Project, (project) => project.user, { cascade: ['remove'] })
+  projects: Project[];
 }
