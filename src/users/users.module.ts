@@ -9,5 +9,6 @@ import { CryptographyService } from '../cryptography/cryptography.service';
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [UsersService, CryptographyService],
+  exports: [UsersService],
 })
 export class UsersModule {}
