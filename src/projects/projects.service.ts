@@ -4,6 +4,7 @@ import { Project } from './entities/project.entity';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dtos/create-project.dto';
 import { UsersService } from '../users/users.service';
+import { UpdateProjectDto } from './dtos/update-project.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -30,7 +31,7 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  updateProject() {
+  updateProject(updateProjectDto: UpdateProjectDto) {
     return 'UPDATE';
   }
 }

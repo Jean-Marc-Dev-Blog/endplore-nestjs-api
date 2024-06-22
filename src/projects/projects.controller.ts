@@ -14,6 +14,7 @@ import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { User } from '../users/entities/user.entity';
 import { CreateProjectDto } from './dtos/create-project.dto';
+import { UpdateProjectDto } from './dtos/update-project.dto';
 
 @UseGuards(JwtGuard)
 @Controller('projects')
@@ -32,7 +33,7 @@ export class ProjectsController {
   }
 
   @Patch()
-  updateProject(@Param() id: string) {
-    return this.projectsService.updateProject();
+  updateProject(@Param() id: string, @Body() body: UpdateProjectDto) {
+    return this.projectsService.updateProject(body);
   }
 }
