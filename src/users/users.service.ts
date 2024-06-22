@@ -30,4 +30,14 @@ export class UsersService {
 
     return this.usersRepository.save(user);
   }
+
+  async getUser(id: string) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+
+    if (user === null) {
+      throw new BadRequestException(`User with id ${id} not found.`);
+    }
+
+    return user;
+  }
 }
