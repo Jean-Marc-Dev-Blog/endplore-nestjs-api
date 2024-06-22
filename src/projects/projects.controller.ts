@@ -1,8 +1,9 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Post, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ProjectsService } from './projects.service';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { User } from '../users/entities/user.entity';
+import { CreateProjectDto } from './dtos/create-project.dto';
 
 @UseGuards(JwtGuard)
 @Controller('projects')
@@ -14,8 +15,9 @@ export class ProjectsController {
     return this.projectsService.getProjects(user.id);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
-  addProject() {
-    return this.projectsService.addProject();
+  addProject(@Body() body: CreateProjectDto, @CurrentUser() user: User) {
+    return this.projectsService.addProject(body, user.id);
   }
 }
