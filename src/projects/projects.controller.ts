@@ -1,14 +1,15 @@
 import {
   Body,
   ClassSerializerInterceptor,
-  Controller, Delete,
+  Controller,
+  Delete,
   Get,
   Param,
   Patch,
   Post,
   UseGuards,
-  UseInterceptors
-} from "@nestjs/common";
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
