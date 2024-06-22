@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dtos/create-project.dto';
 import { UsersService } from '../users/users.service';
+import { UpdateProjectDto } from './dtos/update-project.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -26,6 +27,18 @@ export class ProjectsService {
       description,
       user,
     });
+
+    return this.projectsRepository.save(project);
+  }
+
+  async updateProject(id: string, updateProjectDto: UpdateProjectDto) {
+    const project = await this.projectsRepository.findOne({ where: { id } });
+
+    if (project === null) {
+      throw new BadRequestException(`Project with id ${id} not found.`);
+    }
+
+    Object.assign(project, updateProjectDto);
 
     return this.projectsRepository.save(project);
   }
