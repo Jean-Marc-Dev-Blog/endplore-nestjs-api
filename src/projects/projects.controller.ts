@@ -1,4 +1,14 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Post, UseGuards, UseInterceptors } from "@nestjs/common";
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
@@ -19,5 +29,10 @@ export class ProjectsController {
   @Post()
   addProject(@Body() body: CreateProjectDto, @CurrentUser() user: User) {
     return this.projectsService.addProject(body, user.id);
+  }
+
+  @Patch()
+  updateProject(@Param() id: string) {
+    return this.projectsService.updateProject();
   }
 }

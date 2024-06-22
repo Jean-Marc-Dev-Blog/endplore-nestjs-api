@@ -29,4 +29,8 @@ export class ProjectsService {
 
     return this.projectsRepository.save(project);
   }
+
+  updateProject() {
+    return 'UPDATE';
+  }
 }
