@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { TokenPayload } from './token.types';
 
 @Injectable()
 export class TokenService {
@@ -11,7 +12,7 @@ export class TokenService {
   ) {}
 
   generateToken(user: User) {
-    const payload = {
+    const payload: TokenPayload = {
       sub: user.id,
       email: user.email,
       firstName: user.firstName,
