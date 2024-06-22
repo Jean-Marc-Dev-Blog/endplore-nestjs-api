@@ -42,4 +42,17 @@ export class ProjectsService {
 
     return this.projectsRepository.save(project);
   }
+
+  async deleteProject(id: string) {
+    // Find the project first, because user is only allowed to delete his own projects
+    const project = await this.projectsRepository.findOne({ where: { id } });
+
+    if (project === null) {
+      throw new BadRequestException(`Project with id ${id} not found.`);
+    }
+
+    await this.projectsRepository.delete(project.id);
+
+    return project;
+  }
 }

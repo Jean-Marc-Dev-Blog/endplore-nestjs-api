@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -35,5 +36,10 @@ export class ProjectsController {
   @Patch('/:id')
   updateProject(@Param('id') id: string, @Body() body: UpdateProjectDto) {
     return this.projectsService.updateProject(id, body);
+  }
+
+  @Delete('/:id')
+  deleteProject(@Param('id') id: string) {
+    return this.projectsService.deleteProject(id);
   }
 }
